@@ -57,6 +57,9 @@ func (server *employeeDBServer) GetEmployees(ctx context.Context, input *routeGu
 
 func (server *employeeDBServer) UpdateEmailOfEmployee(ctx context.Context, input *routeGuide.Employee) (*routeGuide.Employee, error) {
 	log.Println("Updating employee.")
+	if input.GetName() == "" || input.GetEmail() == "" {
+		return nil, fmt.Errorf("Provide valid details!")
+	}
 	employee, err := server.database.UpdateEmailOfEmployee(input.GetName(), input.GetEmail())
 	result := routeGuide.Employee{
 		Name:  employee.Name,
@@ -67,6 +70,9 @@ func (server *employeeDBServer) UpdateEmailOfEmployee(ctx context.Context, input
 
 func (server *employeeDBServer) DeleteEmployee(ctx context.Context, input *routeGuide.Employee) (*routeGuide.Empty, error) {
 	log.Println("Deleting employee.")
+	if input.GetName() == "" {
+		return nil, fmt.Errorf("Provide valid details!")
+	}
 	_, err := server.database.DeleteEmployee(input.GetName())
 	return &routeGuide.Empty{}, err
 }
