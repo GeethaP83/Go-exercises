@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "home/geetha/Desktop/practice/grpc/routeGuide";
+
+package routeGuide;
+
+service EmployeeDB {
+    rpc AddEmployee(EmployeeToBeAdded) returns (Employee) {} 
+    rpc GetEmployees(Empty) returns (AllEmployees) {} 
+    rpc UpdateEmailOfEmployee(Employee) returns (Employee) {} 
+    rpc DeleteEmployee(Employee) returns (Empty) {} 
+}
+
+message EmployeeToBeAdded{
+    string name =1 ;
+    string email=2;
+    int64 manager_id =3;
+    int64 department_id =4;
+    int64 company_id =5;
+}
+
+message Employee{
+    int64 id=1;
+    string name=2 ;
+    string email=3;
+    int64 manager_id=4;
+    int64 department_id=5;
+    int64 company_id =6;
+}
+
+message AllEmployees {
+    repeated Employee employees=1;
+}
+
+message Empty{
+}
+
+
+
